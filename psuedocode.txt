@@ -1,0 +1,34 @@
+1.	Required Constants
+    a.	Assign number of bombs to be there in the game
+    b.	We can assign numbers manually or let computer choose a random amount of bombs to be placed every time
+
+
+
+
+2.	Variables to track the state of the game
+    a.	Board/grid to represent squares
+    b.	Winner variable to determine win or loss
+
+
+3.	When the app is loaded
+    a.	There will be an init() method
+        i .	Inside init method, initialize the grid and also place bombs in random squares
+        ii.	The winner variable will be initialized to null because there is no winner or loser yet
+    
+    b.	There will also be a render method
+        i.	Render the board and place bombs, empty squares and squares with value in it
+        ii.	In case of a winner or loser, render a message that tells the user what has happened
+        iii.	Have a function to listen for when a user clicks on a square
+
+
+
+4.	Handling a click function:
+    a.	Get index of square that the user clicks on by extracting it using the id assign to those grids
+    
+    b.	If the square is already clicked then return 
+    
+    c.	If click on one of the bombs square then show all the bombs and set display a message that says you have lost
+
+
+5.	Reset/replay button:
+    a.	Render the board again with completely new values
