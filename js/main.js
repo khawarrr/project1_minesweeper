@@ -19,9 +19,9 @@ const bombCount = 15;
 
 
   /*----- event listeners -----*/
-resetBtn.addEventListener('click', init);
+// resetBtn.addEventListener('click', init);
 
-boardEl.addEventListener('click', handleClick);
+// boardEl.addEventListener('click', handleClick);
 
 
 
@@ -29,16 +29,18 @@ boardEl.addEventListener('click', handleClick);
 init();
 
 function init(){
+    grid = new Array(99).fill(0);
+    // assign bombs to random squares
     winner = null;
     render();
 }
 
 function render() {
 
-    const bombsArr = Array(bombCount).fill('bomb');
+    // const bombsArr = Array(bombCount).fill('bomb');
 
-    // render the grid
-    grid.forEach(function (boxVal, boxIdx) {
-        document.getElementById(boxIdx).innerHTML = playerIcon[boxVal];
-    });
+    // // render the grid
+    // grid.forEach(function (boxVal, boxIdx) {
+    //     document.getElementById(boxIdx).innerHTML = playerIcon[boxVal];
+    // });
 }
