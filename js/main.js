@@ -2,11 +2,6 @@
 
 /*----- constants -----*/
 
-const icon = {
-    
-    flag: "url('http://gph.is/1ODUtJB)'",
-    bomb: "url('http://gph.is/2vzX29Y')",
-}
 
 
  /*----- app's state (variables) -----*/
@@ -14,7 +9,7 @@ const icon = {
  let flags = 0;
 
  let board = [];
- let bombCount = 30;
+ let numberOfBombs = 30;
  
  let width = 10;
 
@@ -27,10 +22,14 @@ const icon = {
 
   const gridEl = document.querySelector('.grid');
   const flagsLeft = document.querySelector('#flags-left');
-
+  const result = document.querySelector('#result');
+  const resetBtn = document.getElementById('reset');
 
 
   /*----- event listeners -----*/
+
+
+  resetBtn.addEventListener('click', replay);
 
 
 
@@ -38,10 +37,16 @@ const icon = {
 /*----- functions -----*/
 init();
 
+function replay(e){
+    e.target = window.location.reload();
+ }
+
 function init(){
+
+    resetBtn.style.display = 'none';
    // random bomb placements
-   const bombFiller = Array(bombCount).fill('has_bomb'); // an array that will fill the grid cells with bombs
-   const emptyBoard = Array(100 - bombCount).fill('no_bomb'); // an array that doesn't have any bombs in it
+   const bombFiller = Array(numberOfBombs).fill('has_bomb'); // an array that will fill the grid cells with bombs
+   const emptyBoard = Array(100 - numberOfBombs).fill('no_bomb'); // an array that doesn't have any bombs in it
 
    // now we need to combine those two arrays above. There is a method called concat that joins two arrays together 
 
@@ -86,10 +91,6 @@ function init(){
 }
 
 function render() {
-
-
-
-
 
     cellNumbers()
 
@@ -167,39 +168,95 @@ function handleClick(cell) {
     if (cell.classList.contains('visited') || cell.classList.contains('flag')) return
 
     if (cell.classList.contains('has_bomb')) {
-        console.log("gameOver")
+        gameOverFunc(cell)
+        resetBtn.style.display = 'block';
 
     }
-
-    else {
+        else {
         let adjMinesCount = cell.getAttribute('totalNum');
         if (adjMinesCount > 0) {
             cell.classList.add('visited');
             cell.innerHTML = adjMinesCount;
             return;
         }
-
-        // now if we click on cells that are empty they will also be marked checked
-        cell.classList.add('visited');
+        checkNeighborCell(cell, currIdx);
     }
+    // now if we click on cells that are empty they will also be marked checked
+    cell.classList.add('visited');
 }
+
+//check neighboring squares once square is clicked
+function checkNeighborCell(cell, currIdx) {
+    const isLeftEdge = (currIdx % width === 0)
+    const isRightEdge = (currIdx % width === width -1)
+
+    setTimeout(() => {
+      if (currIdx > 0 && !isLeftEdge) {
+        const newId = board[parseInt(currIdx) -1].id
+
+        const newCell = document.getElementById(newId)
+        handleClick(newCell)
+      }
+      if (currIdx > 9 && !isRightEdge) {
+        const newId = board[parseInt(currIdx) +1 -width].id
+        
+        const newCell = document.getElementById(newId)
+        handleClick(newCell)
+      }
+      if (currIdx > 10) {
+        const newId = board[parseInt(currIdx -width)].id
+        
+        const newCell = document.getElementById(newId)
+        handleClick(newCell)
+      }
+      if (currIdx > 11 && !isLeftEdge) {
+        const newId = board[parseInt(currIdx) -1 -width].id
+        
+        const newCell = document.getElementById(newId)
+        handleClick(newCell)
+      }
+      if (currIdx < 98 && !isRightEdge) {
+        const newId = board[parseInt(currIdx) +1].id
+        const newCell = document.getElementById(newId)
+        handleClick(newCell)
+      }
+      if (currIdx < 90 && !isLeftEdge) {
+        const newId = board[parseInt(currIdx) -1 +width].id
+        
+        const newCell = document.getElementById(newId)
+        handleClick(newCell)
+      }
+      if (currIdx < 88 && !isRightEdge) {
+        const newId = board[parseInt(currIdx) +1 +width].id
+        
+        const newCell = document.getElementById(newId)
+        handleClick(newCell)
+      }
+      if (currIdx < 89) {
+        const newId = board[parseInt(currIdx) +width].id
+        
+        const newCell = document.getElementById(newId)
+        handleClick(newCell)
+      }
+    }, 10)
+  }
 
 
 //add Flag with right click
 function addFlag(cell) {
     if (gameOver) return
     // resetBtn.style.display = 'block';
-    if (!cell.classList.contains('visited') && (flags < bombCount)) {
+    if (!cell.classList.contains('visited') && (flags < numberOfBombs)) {
       if (!cell.classList.contains('flag')) {
         cell.classList.add('flag')
         cell.innerHTML = ' 🎌 '
         flags ++
-        flagsLeft.innerHTML = bombCount- flags
+        flagsLeft.innerHTML = numberOfBombs- flags
       } else {
         square.classList.remove('flag')
         square.innerHTML = ''
         flags --
-        flagsLeft.innerHTML = bombCount- flags
+        flagsLeft.innerHTML = numberOfBombs- flags
       }
     }
   }
