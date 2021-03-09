@@ -2,10 +2,15 @@
 
 /*----- constants -----*/
 
-const bombCount = 15;
+const icon = {
+    
+    flag: "url('http://gph.is/1ODUtJB)'",
+    bomb: "url('http://gph.is/2vzX29Y')",
+}
+
  /*----- app's state (variables) -----*/
 
- let grid, winner;
+ let grid, winner, revealed;
 
 
 
@@ -14,14 +19,16 @@ const bombCount = 15;
 
   const gridEl = document.getElementById('grid');
 
+  const msgEl = document.getElementById('msg');
+
   const resetBtn = document.getElementById('reset');
 
 
 
   /*----- event listeners -----*/
-// resetBtn.addEventListener('click', init);
+resetBtn.addEventListener('click', init);
 
-// boardEl.addEventListener('click', handleClick);
+gridEl.addEventListener('click', handleClick), addEventListener('contextmenu', flagIt);
 
 
 
@@ -29,8 +36,9 @@ const bombCount = 15;
 init();
 
 function init(){
-    grid = new Array(99).fill(0);
+    grid = new Array(100).fill().map(cells => ({mine: false, adjMines: 0, revealed: false, flagged: false, boom: false}));
     // assign bombs to random squares
+    // console.log(grid);
     winner = null;
     render();
 }
@@ -40,7 +48,32 @@ function render() {
     // const bombsArr = Array(bombCount).fill('bomb');
 
     // // render the grid
-    // grid.forEach(function (boxVal, boxIdx) {
-    //     document.getElementById(boxIdx).innerHTML = playerIcon[boxVal];
-    // });
+
+    grid.forEach(function (boxVal, boxIdx) {
+        boxVal.forEach(function (cellVal, rowIdx){
+            const div = document.getElementById(`c${boxIdx}r${rowIdx}`)
+        //     document.getElementById(boxIdx).innerHTML = playerIcon[boxVal];
+            console.log(div);
+        });
+
+    });
+
+
+    // render the message
+
+    if (winner) {
+        msg.textContent = "Wow, look at you!!!"
+    }
+
+
+}
+
+
+function handleClick(evt) {
+    console.log(evt.target);
+}
+
+
+function flagIt() {
+
 }

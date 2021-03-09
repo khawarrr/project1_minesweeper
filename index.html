@@ -9,125 +9,163 @@
     <title>Document</title>
 </head>
 <body>
-    
+
+
     <div class="container">
+        <h1>MINESWEEPER</h1>
+        <h1 id="msg"></h1>
+        <div class="grid">
+
+            
+        </div>
+
+        <!-- <button id="reset">Play Again?</button> -->
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+</body>
+</html>
+
+
+
+
+
+
+<!-- old way of setting up the grid
+
+<div class="container">
         <button>PLAY</button>
+        <h1 id="msg"></h1>
         <div id="grid">
-            <div id="0" class="boxs"></div>
-            <div id="1" class="boxs"></div>
-            <div id="2" class="boxs"></div>
-            <div id="3" class="boxs"></div>
-            <div id="4" class="boxs"></div>
-            <div id="5" class="boxs"></div>
-            <div id="6" class="boxs"></div>
-            <div id="7" class="boxs"></div>
-            <div id="8" class="boxs"></div>
-            <div id="9" class="boxs"></div>
-            <div id="10" class="boxs"></div>
-            <div id="11" class="boxs"></div>
-            <div id="12" class="boxs"></div>
-            <div id="13" class="boxs"></div>
-            <div id="15" class="boxs"></div>
-            <div id="15" class="boxs"></div>
-            <div id="16" class="boxs"></div>
-            <div id="17" class="boxs"></div>
-            <div id="18" class="boxs"></div>
-            <div id="19" class="boxs"></div>
-            <div id="20" class="boxs"></div>
+            <div id="c0r4" class="boxs"></div>
+            <div id="c1r4" class="boxs"></div>
+            <div id="c2r4" class="boxs"></div>
+            <div id="c3r4" class="boxs"></div>
+            <div id="c4r4" class="boxs"></div>
+            <div id="c5r4" class="boxs"></div>
+            <div id="c6r4" class="boxs"></div>
+            <div id="c7r4" class="boxs"></div>
+            <div id="c8r4" class="boxs"></div>
+            <div id="c9r4" class="boxs"></div>
+            <div id="c10r4" class="boxs"></div>
+            <div id="c11r4" class="boxs"></div>
+            <div id="c12r4" class="boxs"></div>
+            <div id="c13r4" class="boxs"></div>
+            <div id="c15r4" class="boxs"></div>
+            <div id="c15r4" class="boxs"></div>
+            <div id="c16r4" class="boxs"></div>
+            <div id="c17r4" class="boxs"></div>
+            <div id="c18r4" class="boxs"></div>
+            <div id="c19r4" class="boxs"></div>
+            <div id="c20r4" class="boxs"></div>
 
 
             
 
 
 
-            <div id="21" class="boxs"></div>
-            <div id="22" class="boxs"></div>
-            <div id="23" class="boxs"></div>
-            <div id="24" class="boxs"></div>
-            <div id="25" class="boxs"></div>
-            <div id="26" class="boxs"></div>
-            <div id="27" class="boxs"></div>
-            <div id="28" class="boxs"></div>
-            <div id="29" class="boxs"></div>
-            <div id="30" class="boxs"></div>
-            <div id="31" class="boxs"></div>
-            <div id="32" class="boxs"></div>
-            <div id="33" class="boxs"></div>
-            <div id="35" class="boxs"></div>
-            <div id="35" class="boxs"></div>
-            <div id="36" class="boxs"></div>
-            <div id="37" class="boxs"></div>
-            <div id="38" class="boxs"></div>
-            <div id="39" class="boxs"></div>
-            <div id="40" class="boxs"></div>
+            <div id="c21r3" class="boxs"></div>
+            <div id="c22r3" class="boxs"></div>
+            <div id="c23r3" class="boxs"></div>
+            <div id="c24r3" class="boxs"></div>
+            <div id="c25r3" class="boxs"></div>
+            <div id="c26r3" class="boxs"></div>
+            <div id="c27r3" class="boxs"></div>
+            <div id="c28r3" class="boxs"></div>
+            <div id="c29r3" class="boxs"></div>
+            <div id="c30r3" class="boxs"></div>
+            <div id="c31r3" class="boxs"></div>
+            <div id="c32r3" class="boxs"></div>
+            <div id="c33r3" class="boxs"></div>
+            <div id="c35r3" class="boxs"></div>
+            <div id="c35r3" class="boxs"></div>
+            <div id="c36r3" class="boxs"></div>
+            <div id="c37r3" class="boxs"></div>
+            <div id="c38r3" class="boxs"></div>
+            <div id="c39r3" class="boxs"></div>
+            <div id="c40r3" class="boxs"></div>
 
 
 
 
-            <div id="41" class="boxs"></div>
-            <div id="42" class="boxs"></div>
-            <div id="43" class="boxs"></div>
-            <div id="44" class="boxs"></div>
-            <div id="45" class="boxs"></div>
-            <div id="46" class="boxs"></div>
-            <div id="47" class="boxs"></div>
-            <div id="48" class="boxs"></div>
-            <div id="49" class="boxs"></div>
-            <div id="50" class="boxs"></div>
-            <div id="51" class="boxs"></div>
-            <div id="52" class="boxs"></div>
-            <div id="53" class="boxs"></div>
-            <div id="55" class="boxs"></div>
-            <div id="55" class="boxs"></div>
-            <div id="56" class="boxs"></div>
-            <div id="57" class="boxs"></div>
-            <div id="58" class="boxs"></div>
-            <div id="59" class="boxs"></div>
-            <div id="60" class="boxs"></div>
+            <div id="c41r2" class="boxs"></div>
+            <div id="c42r2" class="boxs"></div>
+            <div id="c43r2" class="boxs"></div>
+            <div id="c44r2" class="boxs"></div>
+            <div id="c45r2" class="boxs"></div>
+            <div id="c46r2" class="boxs"></div>
+            <div id="c47r2" class="boxs"></div>
+            <div id="c48r2" class="boxs"></div>
+            <div id="c49r2" class="boxs"></div>
+            <div id="c50r2" class="boxs"></div>
+            <div id="c51r2" class="boxs"></div>
+            <div id="c52r2" class="boxs"></div>
+            <div id="c53r2" class="boxs"></div>
+            <div id="c55r2" class="boxs"></div>
+            <div id="c55r2" class="boxs"></div>
+            <div id="c56r2" class="boxs"></div>
+            <div id="c57r2" class="boxs"></div>
+            <div id="c58r2" class="boxs"></div>
+            <div id="c59r2" class="boxs"></div>
+            <div id="c60r2" class="boxs"></div>
 
 
-            <div id="61" class="boxs"></div>
-            <div id="62" class="boxs"></div>
-            <div id="63" class="boxs"></div>
-            <div id="64" class="boxs"></div>
-            <div id="65" class="boxs"></div>
-            <div id="66" class="boxs"></div>
-            <div id="67" class="boxs"></div>
-            <div id="68" class="boxs"></div>
-            <div id="69" class="boxs"></div>
-            <div id="70" class="boxs"></div>
-            <div id="71" class="boxs"></div>
-            <div id="72" class="boxs"></div>
-            <div id="73" class="boxs"></div>
-            <div id="75" class="boxs"></div>
-            <div id="75" class="boxs"></div>
-            <div id="76" class="boxs"></div>
-            <div id="77" class="boxs"></div>
-            <div id="78" class="boxs"></div>
-            <div id="79" class="boxs"></div>
-            <div id="80" class="boxs"></div>
+            <div id="c61r1" class="boxs"></div>
+            <div id="c62r1" class="boxs"></div>
+            <div id="c63r1" class="boxs"></div>
+            <div id="c64r1" class="boxs"></div>
+            <div id="c65r1" class="boxs"></div>
+            <div id="c66r1" class="boxs"></div>
+            <div id="c67r1" class="boxs"></div>
+            <div id="c68r1" class="boxs"></div>
+            <div id="c69r1" class="boxs"></div>
+            <div id="c70r1" class="boxs"></div>
+            <div id="c71r1" class="boxs"></div>
+            <div id="c72r1" class="boxs"></div>
+            <div id="c73r1" class="boxs"></div>
+            <div id="c75r1" class="boxs"></div>
+            <div id="c75r1" class="boxs"></div>
+            <div id="c76r1" class="boxs"></div>
+            <div id="c77r1" class="boxs"></div>
+            <div id="c78r1" class="boxs"></div>
+            <div id="c79r1" class="boxs"></div>
+            <div id="c80r1" class="boxs"></div>
 
 
 
-            <div id="81" class="boxs"></div>
-            <div id="82" class="boxs"></div>
-            <div id="83" class="boxs"></div>
-            <div id="84" class="boxs"></div>
-            <div id="85" class="boxs"></div>
-            <div id="86" class="boxs"></div>
-            <div id="87" class="boxs"></div>
-            <div id="88" class="boxs"></div>
-            <div id="89" class="boxs"></div>
-            <div id="90" class="boxs"></div>
-            <div id="91" class="boxs"></div>
-            <div id="92" class="boxs"></div>
-            <div id="93" class="boxs"></div>
-            <div id="95" class="boxs"></div>
-            <div id="95" class="boxs"></div>
-            <div id="96" class="boxs"></div>
-            <div id="97" class="boxs"></div>
-            <div id="98" class="boxs"></div>
-            <div id="99" class="boxs"></div>
+            <div id="c81r0" class="boxs"></div>
+            <div id="c82r0" class="boxs"></div>
+            <div id="c83r0" class="boxs"></div>
+            <div id="c84r0" class="boxs"></div>
+            <div id="c85r0" class="boxs"></div>
+            <div id="c86r0" class="boxs"></div>
+            <div id="c87r0" class="boxs"></div>
+            <div id="c88r0" class="boxs"></div>
+            <div id="c89r0" class="boxs"></div>
+            <div id="c90r0" class="boxs"></div>
+            <div id="c91r0" class="boxs"></div>
+            <div id="c92r0" class="boxs"></div>
+            <div id="c93r0" class="boxs"></div>
+            <div id="c95r0" class="boxs"></div>
+            <div id="c95r0" class="boxs"></div>
+            <div id="c96r0" class="boxs"></div>
+            <div id="c97r0" class="boxs"></div>
+            <div id="c98r0" class="boxs"></div>
+            <div id="c99r0" class="boxs"></div>
 
 
 
@@ -135,7 +173,4 @@
         </div>
 
         <button id="reset">Play Again?</button>
-    </div>
-    
-</body>
-</html>
+    </div> -->
