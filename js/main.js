@@ -11,7 +11,7 @@ const icon = {
 
  /*----- app's state (variables) -----*/
 
- let flags;
+ let flags = 0;
 
  let board = [];
  let bombCount = 30;
@@ -68,13 +68,20 @@ function init(){
         handleClick(cell)
     })
 
+    // adding flags
+
+     //cntrl and left click
+     cell.oncontextmenu = function(e) {
+        e.preventDefault()
+        addFlag(cell)
+      }
+
 
 }
 
    
 
 
-    winner = null;
     render();
 }
 
@@ -152,7 +159,13 @@ function cellNumbers () {
 }
 
 function handleClick(cell) {
+
+    // if game is over we return, nothing happens
     if (gameOver) return
+
+    let currIdx = cell.id;
+    if (cell.classList.contains('visited') || cell.classList.contains('flag')) return
+
     if (cell.classList.contains('has_bomb')) {
         console.log("gameOver")
 
@@ -172,17 +185,37 @@ function handleClick(cell) {
 }
 
 
+//add Flag with right click
+function addFlag(cell) {
+    if (gameOver) return
+    // resetBtn.style.display = 'block';
+    if (!cell.classList.contains('visited') && (flags < bombCount)) {
+      if (!cell.classList.contains('flag')) {
+        cell.classList.add('flag')
+        cell.innerHTML = ' 🎌 '
+        flags ++
+        flagsLeft.innerHTML = bombCount- flags
+      } else {
+        square.classList.remove('flag')
+        square.innerHTML = ''
+        flags --
+        flagsLeft.innerHTML = bombCount- flags
+      }
+    }
+  }
+
+
   //game over
   function gameOverFunc(cell) {
     result.innerHTML = 'OOPS! you clicked on a bomb 💣'
     gameOver = true
 
     //show ALL the bombs
-    squares.forEach(square => {
-      if (square.classList.contains('has_bomb')) {
-        square.innerHTML = '💣'
-        square.classList.remove('has_bomb')
-        square.classList.add('visited')
+    board.forEach(cell => {
+      if (cell.classList.contains('has_bomb')) {
+        cell.innerHTML = '💥'
+        cell.classList.remove('has_bomb')
+        cell.classList.add('visited')
       }
     })
   }
