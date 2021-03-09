@@ -11,19 +11,22 @@ const icon = {
 
  /*----- app's state (variables) -----*/
 
- let flags, winner;
+ let flags;
 
  let board = [];
  let bombCount = 30;
  
  let width = 10;
+
+ let gameOver = false;
  
 
 
 
   /*----- cached element references -----*/
 
-  const gridEl = document.querySelector('.grid')
+  const gridEl = document.querySelector('.grid');
+  const flagsLeft = document.querySelector('#flags-left');
 
 
 
@@ -123,20 +126,33 @@ function cellNumbers () {
         const rightEdgeColumn = (i % width === width - 1)
   
         if (board[i].classList.contains('no_bomb')) {
+
+            // to get the cell value to the left of the cell
           if (i > 0 && !leftEdgeColumn && board[i - 1].classList.contains('has_bomb')) adjMinesCount ++
+          // to get the right top corner
           if (i > 9 && !rightEdgeColumn && board[i + 1 - width].classList.contains('has_bomb')) adjMinesCount ++
+          // to get the cell right above 
           if (i > 10 && board[i -width].classList.contains('has_bomb')) adjMinesCount ++
+            // top left corner cell
           if (i > 11 && !leftEdgeColumn && board[i - 1 - width].classList.contains('has_bomb')) adjMinesCount ++
+          // bottom right corner cell
           if (i < 88 && !rightEdgeColumn && board[i + 1 + width].classList.contains('has_bomb')) adjMinesCount ++
+          // right below cell
           if (i < 89 && !leftEdgeColumn && board[i + width].classList.contains('has_bomb')) adjMinesCount ++ 
+          // bottom left corner cell
           if (i < 90 && !leftEdgeColumn && board[i - 1 + width].classList.contains('has_bomb')) adjMinesCount ++
+          // next right cell 
           if (i < 98 && !rightEdgeColumn && board[i + 1].classList.contains('has_bomb')) adjMinesCount ++
+
+
+          // now out div will hold another class and that will have a count in each cell
           board[i].setAttribute('totalNum', adjMinesCount)
         }
       }
 }
 
 function handleClick(cell) {
+    if (gameOver) return
     if (cell.classList.contains('has_bomb')) {
         console.log("gameOver")
 
@@ -154,3 +170,19 @@ function handleClick(cell) {
         cell.classList.add('visited');
     }
 }
+
+
+  //game over
+  function gameOverFunc(cell) {
+    result.innerHTML = 'OOPS! you clicked on a bomb 💣'
+    gameOver = true
+
+    //show ALL the bombs
+    squares.forEach(square => {
+      if (square.classList.contains('has_bomb')) {
+        square.innerHTML = '💣'
+        square.classList.remove('has_bomb')
+        square.classList.add('visited')
+      }
+    })
+  }
