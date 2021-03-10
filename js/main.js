@@ -2,17 +2,21 @@
 
 /*----- constants -----*/
 
+const colorLookUp = {
+    '1': 'red',
+    '2': 'green',
+    '3': 'blue',
+    '4': 'yellow',
+    '5': "purple"
+}
 
 
  /*----- app's state (variables) -----*/
 
  let flags = 0;
-
  let board = [];
- let numberOfBombs = 30;
- 
+ let numberOfBombs = 15;
  let width = 10;
-
  let gameOver = false;
  
 
@@ -31,30 +35,33 @@
 
   resetBtn.addEventListener('click', replay);
 
+  function replay(e){
+      e.target = window.location.reload();
+   }
+
 
 
 
 /*----- functions -----*/
 init();
 
-function replay(e){
-    e.target = window.location.reload();
- }
 
 function init(){
 
     resetBtn.style.display = 'none';
+    flagsLeft.innerHTML = numberOfBombs;
+
    // random bomb placements
    const bombFiller = Array(numberOfBombs).fill('has_bomb'); // an array that will fill the grid cells with bombs
    const emptyBoard = Array(100 - numberOfBombs).fill('no_bomb'); // an array that doesn't have any bombs in it
 
    // now we need to combine those two arrays above. There is a method called concat that joins two arrays together 
 
-   const gridCells = emptyBoard.concat(bombFiller);
+   const completeBoard = emptyBoard.concat(bombFiller);
 
    // creating a mix array filled with both values
 
-   const mixArray = gridCells.sort(() => Math.random() -0.5);
+   const mixArray = completeBoard.sort(() => Math.random() -0.5);
    
 
 
@@ -68,14 +75,13 @@ function init(){
     board.push(cell);
 
 
-    // when click on a cell and it doesn't have a bomb
+    // left/ normal mouse click
     cell.addEventListener('click', function(e) {
         handleClick(cell)
     })
 
-    // adding flags
 
-     //cntrl and left click
+     //cntrl and right click
      cell.oncontextmenu = function(e) {
         e.preventDefault()
         addFlag(cell)
@@ -122,7 +128,7 @@ function render() {
 
 */
 
-// display numbers, how many mines are near-by that square
+// display and add numbers, how many mines are near-by that square
 
 
 function cellNumbers () {
@@ -136,24 +142,40 @@ function cellNumbers () {
         if (board[i].classList.contains('no_bomb')) {
 
             // to get the cell value to the left of the cell
-          if (i > 0 && !leftEdgeColumn && board[i - 1].classList.contains('has_bomb')) adjMinesCount ++
+          if (i > 0 && !leftEdgeColumn && board[i - 1].classList.contains('has_bomb')) {
+              adjMinesCount ++
+            }
           // to get the right top corner
-          if (i > 9 && !rightEdgeColumn && board[i + 1 - width].classList.contains('has_bomb')) adjMinesCount ++
+          if (i > 9 && !rightEdgeColumn && board[i + 1 - width].classList.contains('has_bomb')) {
+              adjMinesCount ++
+            }
           // to get the cell right above 
-          if (i > 10 && board[i -width].classList.contains('has_bomb')) adjMinesCount ++
+          if (i > 10 && board[i -width].classList.contains('has_bomb')) {
+              adjMinesCount ++
+            }
             // top left corner cell
-          if (i > 11 && !leftEdgeColumn && board[i - 1 - width].classList.contains('has_bomb')) adjMinesCount ++
+          if (i > 11 && !leftEdgeColumn && board[i - 1 - width].classList.contains('has_bomb')) {
+              adjMinesCount ++
+            }
           // bottom right corner cell
-          if (i < 88 && !rightEdgeColumn && board[i + 1 + width].classList.contains('has_bomb')) adjMinesCount ++
+          if (i < 88 && !rightEdgeColumn && board[i + 1 + width].classList.contains('has_bomb')) {
+              adjMinesCount ++
+            }
           // right below cell
-          if (i < 89 && !leftEdgeColumn && board[i + width].classList.contains('has_bomb')) adjMinesCount ++ 
+          if (i < 89 && !leftEdgeColumn && board[i + width].classList.contains('has_bomb')) {
+              adjMinesCount ++
+            } 
           // bottom left corner cell
-          if (i < 90 && !leftEdgeColumn && board[i - 1 + width].classList.contains('has_bomb')) adjMinesCount ++
+          if (i < 90 && !leftEdgeColumn && board[i - 1 + width].classList.contains('has_bomb')) {
+              adjMinesCount ++
+            }
           // next right cell 
-          if (i < 98 && !rightEdgeColumn && board[i + 1].classList.contains('has_bomb')) adjMinesCount ++
+          if (i < 98 && !rightEdgeColumn && board[i + 1].classList.contains('has_bomb')) {
+              adjMinesCount ++
+            }
 
 
-          // now out div will hold another class and that will have a count in each cell
+          // now our div will hold another class and that will have a count in each cell
           board[i].setAttribute('totalNum', adjMinesCount)
         }
       }
@@ -174,8 +196,13 @@ function handleClick(cell) {
     }
         else {
         let adjMinesCount = cell.getAttribute('totalNum');
-        if (adjMinesCount > 0) {
+        if (adjMinesCount != 0) {
             cell.classList.add('visited');
+
+            if (adjMinesCount == 1) {cell.style.color = colorLookUp[1]  }
+            if (adjMinesCount == 2) {cell.style.color = colorLookUp[2]  }
+            if (adjMinesCount == 3) {cell.style.color = colorLookUp[3]  }
+            if (adjMinesCount == 4) {cell.style.color = colorLookUp[4]  }
             cell.innerHTML = adjMinesCount;
             return;
         }
@@ -238,7 +265,7 @@ function checkNeighborCell(cell, currIdx) {
         const newCell = document.getElementById(newId)
         handleClick(newCell)
       }
-    }, 10)
+    }, 100)
   }
 
 
@@ -252,11 +279,29 @@ function addFlag(cell) {
         cell.innerHTML = ' 🎌 '
         flags ++
         flagsLeft.innerHTML = numberOfBombs- flags
+        checkForWin();
       } else {
-        square.classList.remove('flag')
-        square.innerHTML = ''
+        cell.classList.remove('flag')
+        cell.innerHTML = ''
         flags --
         flagsLeft.innerHTML = numberOfBombs- flags
+      }
+    }
+  }
+
+ //check for win
+ function checkForWin() {
+    ///simplified win argument
+  let matches = 0
+
+    for (let i = 0; i < board.length; i++) {
+      if (board[i].classList.contains('flag') && board[i].classList.contains('has_bomb')) {
+        matches ++
+      }
+      if (matches === numberOfBombs) {
+        result.innerHTML = "You're on roll!!!";
+        gameOver = true;
+        resetBtn.style.display = 'block';
       }
     }
   }
@@ -264,15 +309,15 @@ function addFlag(cell) {
 
   //game over
   function gameOverFunc(cell) {
-    result.innerHTML = 'OOPS! you clicked on a bomb 💣'
-    gameOver = true
+    result.innerHTML = 'OOPS! you clicked on a bomb 💣';
+    gameOver = true;
 
     //show ALL the bombs
     board.forEach(cell => {
       if (cell.classList.contains('has_bomb')) {
-        cell.innerHTML = '💥'
-        cell.classList.remove('has_bomb')
-        cell.classList.add('visited')
+        cell.innerHTML = '💥';
+        cell.classList.remove('has_bomb');
+        cell.classList.add('visited');
       }
     })
   }
