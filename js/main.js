@@ -18,6 +18,8 @@ const colorLookUp = {
  let numberOfBombs = 15;
  let width = 10;
  let gameOver = false;
+
+ let selectedCell;
  
 
 
@@ -77,6 +79,9 @@ function init(){
 
     // left/ normal mouse click
     cell.addEventListener('click', function(e) {
+
+        let selectedCell = cell;
+
         handleClick(cell)
     })
 
@@ -157,6 +162,14 @@ function cellNumbers () {
           if (i > 11 && !leftEdgeColumn && board[i - 1 - width].classList.contains('has_bomb')) {
               adjMinesCount ++
             }
+            // next right cell 
+            if (i < 98 && !rightEdgeColumn && board[i + 1].classList.contains('has_bomb')) {
+                adjMinesCount ++
+              }
+              // bottom left corner cell
+              if (i < 90 && !leftEdgeColumn && board[i - 1 + width].classList.contains('has_bomb')) {
+                  adjMinesCount ++
+                }
           // bottom right corner cell
           if (i < 88 && !rightEdgeColumn && board[i + 1 + width].classList.contains('has_bomb')) {
               adjMinesCount ++
@@ -165,14 +178,6 @@ function cellNumbers () {
           if (i < 89 && !leftEdgeColumn && board[i + width].classList.contains('has_bomb')) {
               adjMinesCount ++
             } 
-          // bottom left corner cell
-          if (i < 90 && !leftEdgeColumn && board[i - 1 + width].classList.contains('has_bomb')) {
-              adjMinesCount ++
-            }
-          // next right cell 
-          if (i < 98 && !rightEdgeColumn && board[i + 1].classList.contains('has_bomb')) {
-              adjMinesCount ++
-            }
 
 
           // now our div will hold another class and that will have a count in each cell
@@ -187,9 +192,14 @@ function handleClick(cell) {
     if (gameOver) return
 
     let currIdx = cell.id;
+
+    // if the square has been clicked or has a flag on it then we also return
     if (cell.classList.contains('visited') || cell.classList.contains('flag')) return
 
-    if (cell.classList.contains('has_bomb')) {
+
+
+    if (cell.classList.contains('has_bomb') ) {
+        console.log("gameover", cell)
         gameOverFunc(cell)
         resetBtn.style.display = 'block';
 
@@ -219,10 +229,10 @@ function checkNeighborCell(cell, currIdx) {
 
     setTimeout(() => {
       if (currIdx > 0 && !isLeftEdge) {
-        const newId = board[parseInt(currIdx) -1].id
+        const newId = board[parseInt(currIdx) -1].id // create new id given by curridx and assign it to newId
 
-        const newCell = document.getElementById(newId)
-        handleClick(newCell)
+        const newCell = document.getElementById(newId)   // newCell will get the new id
+        handleClick(newCell) //call handleclick function on new id to check for other cells
       }
       if (currIdx > 9 && !isRightEdge) {
         const newId = board[parseInt(currIdx) +1 -width].id
@@ -291,7 +301,7 @@ function addFlag(cell) {
 
  //check for win
  function checkForWin() {
-    ///simplified win argument
+   
   let matches = 0
 
     for (let i = 0; i < board.length; i++) {

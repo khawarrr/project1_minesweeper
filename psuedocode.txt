@@ -5,9 +5,11 @@
 
 
 
+
 2.	Variables to track the state of the game
     a.	Board/grid to represent squares
     b.	Winner variable to determine win or loss
+    c. have a variable for flags, width, bombcount.
 
 
 3.	When the app is loaded
