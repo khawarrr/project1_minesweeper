@@ -2,8 +2,8 @@
 
 
 ### Description
-Minesweeper is a singl player puzzle game. The goal of the game is to click on squares and clear the board without accidentally clicking
-on hidden mines. The clues are provided in terms of number of neighbor mines that could be directly connected to any of square's edges that was clicked before. 
+Minesweeper is a single player puzzle game. The goal of the game is to click on squares and clear the board without clicking
+on hidden mines. The clues are provided in terms of number of neighbor mines that could be directly connected to any of square's edges that were clicked before. 
 
 #### History
 The Minesweeper was created for windows by Microsoft employees, Rober Donner and Curtis Johnson, in 1990.
