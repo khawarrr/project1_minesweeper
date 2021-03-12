@@ -26,7 +26,7 @@ The Minesweeper was created for windows by Microsoft employees, Rober Donner and
 
 ## Getting Started
 
-
+https://khawarrr.github.io/project1_minesweeper/
 
 ## Next Steps
 
