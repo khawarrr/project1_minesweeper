@@ -10,6 +10,13 @@ const colorLookUp = {
     '5': "purple"
 }
 
+const sound = {
+  bombExplosion: "https://freesound.org/data/previews/399/399303_5405837-lq.mp3",
+  backgroundMusic: "https://freesound.org/data/previews/251/251530_2962530-lq.mp3",
+}
+
+
+const player = new Audio();
 
  /*----- app's state (variables) -----*/
 
@@ -19,7 +26,7 @@ const colorLookUp = {
  let width = 10;
  let gameOver = false;
 
- let selectedCell;
+ let explosion;
  
 
 
@@ -32,6 +39,9 @@ const colorLookUp = {
   const resetBtn = document.getElementById('reset');
 
 
+  const bgmEl = document.getElementById('bgm');
+
+ 
   /*----- event listeners -----*/
 
 
@@ -48,7 +58,17 @@ const colorLookUp = {
 init();
 
 
+function explosionSound(){
+  player.src = sound.bombExplosion
+  player.play();
+  
+}
+
+
+
 function init(){
+
+
 
     resetBtn.style.display = 'none';
     flagsLeft.innerHTML = numberOfBombs;
@@ -199,8 +219,9 @@ function handleClick(cell) {
 
 
     if (cell.classList.contains('has_bomb') ) {
-        console.log("gameover", cell)
         gameOverFunc(cell)
+        explosionSound()
+        
         resetBtn.style.display = 'block';
 
     }

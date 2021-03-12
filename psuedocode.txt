@@ -1,6 +1,7 @@
 1.	Required Constants
     a.	Assign number of bombs to be there in the game
     b.	We can assign numbers manually or let computer choose a random amount of bombs to be placed every time
+    c. an object that can store different colors corresponding to different nnumbers.
 
 
 
@@ -9,7 +10,8 @@
 2.	Variables to track the state of the game
     a.	Board/grid to represent squares
     b.	Winner variable to determine win or loss
-    c. have a variable for flags, width, bombcount.
+    c. have a variable for flags to tell the users how many flags have been placed or amount of bombs there are placed.
+    d. width variable to determine left and right edge.
 
 
 3.	When the app is loaded
@@ -31,6 +33,21 @@
     
     c.	If click on one of the bombs square then show all the bombs and set display a message that says you have lost
 
+    d. if click on a square that is empty then initiate flood function.
 
-5.	Reset/replay button:
+5. Gameover function for when the game should be over.
+    a. clicking on bomb will definetely end the game.
+
+6. Implementing a function to add flags
+    a. once a flag has been added then that square won't go off if we click on it or the bomb goes off
+    b. also once a flag has been added make sure to reduce the count of mines or flags left
+
+7. FLood function
+    a. clicking on an empty square will create a flood that will also open the neighbor squares if they are also empty
+
+8. Function to count how many bombs are nearby
+    a. add a function to count near by bombs that connects to its sides.
+
+
+9.	Reset/replay button:
     a.	Render the board again with completely new values
