@@ -12,7 +12,7 @@ const colorLookUp = {
 
 const sound = {
   bombExplosion: "https://freesound.org/data/previews/399/399303_5405837-lq.mp3",
-  backgroundMusic: "https://freesound.org/data/previews/251/251530_2962530-lq.mp3",
+
 }
 
 
@@ -92,15 +92,16 @@ function init(){
        //we want 100 sqaures divs
     const cell = document.createElement('div');
     cell.setAttribute('id', i); // this will give the square a unique id
-    cell.classList.add(mixArray[i]) // we will also give it a class name so that way squares with bomb and without bombs can be differentiate
+    
     gridEl.appendChild(cell); // 100 divs will be put into .grid class
     board.push(cell);
+    
+    cell.classList.add(mixArray[i]) // we will also give it a class name so that way squares with bomb and without bombs can be differentiate
 
+    // ^^ <div id='0' className="has_bomb" or className="no_bomb"> </div>
 
     // left/ normal mouse click
     cell.addEventListener('click', function(e) {
-
-        let selectedCell = cell;
 
         handleClick(cell)
     })
@@ -159,6 +160,7 @@ function render() {
 function cellNumbers () {
     for (let i = 0; i < board.length; i++) {
         let adjMinesCount = 0
+         
         const leftEdgeColumn = (i % width === 0)  // index 10 % width which is also 10 === 0 therefore left edge
         
         // index 9,19,29 and so on ... i = 19 % 10 === 9 which is width - 1 and that would be out right edge
@@ -200,7 +202,7 @@ function cellNumbers () {
             } 
 
 
-          // now our div will hold another class and that will have a count in each cell
+          // now our div will hold another class name totaNum and that will have a count in each cell
           board[i].setAttribute('totalNum', adjMinesCount)
         }
       }
@@ -227,6 +229,8 @@ function handleClick(cell) {
     }
         else {
         let adjMinesCount = cell.getAttribute('totalNum');
+
+        // if number totNum adds to 0 then we don't care, we only care if the number is bigger than zero
         if (adjMinesCount != 0) {
             cell.classList.add('visited');
 
@@ -303,34 +307,45 @@ function checkNeighborCell(cell, currIdx) {
 //add Flag with right click
 function addFlag(cell) {
     if (gameOver) return
-    // resetBtn.style.display = 'block';
+    
+    // if the square is not already been visited and number of flags are less than bombs number
     if (!cell.classList.contains('visited') && (flags < numberOfBombs)) {
+
+      // also the cell doesn't contain flag already
       if (!cell.classList.contains('flag')) {
         cell.classList.add('flag')
+
+        // add the flag emoji once clicked with right click or control + left click
         cell.innerHTML = ' 🎌 '
-        flags ++
+        flags += 1  // increase the flag count
+
+        // also decrease the flags left count from top
         flagsLeft.innerHTML = numberOfBombs- flags
+
+        // if all of the flags placed on the right cells as in square that actually do contain bombs then call for win function
         checkForWin();
       } else {
+        // to remove a flag 
         cell.classList.remove('flag')
         cell.innerHTML = ''
-        flags --
+        flags -= 1
         flagsLeft.innerHTML = numberOfBombs- flags
       }
     }
   }
 
- //check for win
+ //determine when a player has won
  function checkForWin() {
    
-  let matches = 0
+  let flagsCount = 0
 
     for (let i = 0; i < board.length; i++) {
       if (board[i].classList.contains('flag') && board[i].classList.contains('has_bomb')) {
-        matches ++
+        flagsCount += 1
       }
-      if (matches === numberOfBombs) {
-        result.innerHTML = "You're on roll!!!";
+      // once all the flags have been placed on squares that actually contain the bombs then the game should declare a winner and ends right away
+      if (flagsCount === numberOfBombs) {
+        result.innerHTML = "WOW YOU ARE A PRO!!!";
         gameOver = true;
         resetBtn.style.display = 'block';
       }
@@ -338,16 +353,18 @@ function addFlag(cell) {
   }
 
 
-  //game over
+  //determine when a game is over
   function gameOverFunc(cell) {
     result.innerHTML = 'OOPS! you clicked on a bomb 💣';
     gameOver = true;
 
-    //show ALL the bombs
+    //just show all the bombs
     board.forEach(cell => {
       if (cell.classList.contains('has_bomb')) {
         cell.innerHTML = '💥';
         cell.classList.remove('has_bomb');
+
+        // reveal the bombs 
         cell.classList.add('visited');
       }
     })

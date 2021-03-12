@@ -1,5 +1,7 @@
 body {
-  background-image: url(../screenshots/bgp.jpg);
+  /* background-image: url(../screenshots/bgp.jpg);
+   */
+   background-color: #0c0202;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -56,7 +58,7 @@ div {
   height: 40px;
   width: 40px;
   border: 5px solid;
-  border-color: #024458 #004e5c #04676e #066970;
+  border-color: #024458 ;
   box-sizing: border-box;
 }
 
@@ -73,7 +75,8 @@ div {
   height: 40px;
   width: 40px;
   border: 5px solid;
-  border-color: #024458 #004e5c #04676e #066970;
+  border-color: #024458 ;
+  /* 024458 */
   box-sizing: border-box;
 }
 
